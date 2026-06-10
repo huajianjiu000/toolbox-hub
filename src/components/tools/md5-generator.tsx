@@ -45,7 +45,7 @@ function md5(input: string): string {
     a = add(a, oa); b = add(b, ob); c = add(c, oc); d = add(d, od);
   }
   function toHex(v: number) { let h = ""; for (let j = 0; j < 4; j++) h += ((v >> (j * 8)) & 255).toString(16).padStart(2,"0"); return h; }
-  return (toHex(d) + toHex(c) + toHex(b) + toHex(a)).toLowerCase();
+  return (toHex(a) + toHex(b) + toHex(c) + toHex(d)).toLowerCase();
 }
 
 async function hashText(text: string, algo: string): Promise<string> {

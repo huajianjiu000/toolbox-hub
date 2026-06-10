@@ -1,9 +1,22 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getTool, tools } from "@/lib/tools-data";
+import TiktokDownloader from "@/components/tools/tiktok-downloader";
+import InstagramDownloader from "@/components/tools/instagram-downloader";
+import YoutubeShortsDownloader from "@/components/tools/youtube-shorts-downloader";
+import ImageWatermarkRemover from "@/components/tools/image-watermark-remover";
+import VideoWatermarkRemover from "@/components/tools/video-watermark-remover";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import ToolCard from "@/components/tool-card";
+import PasswordStrength from "@/components/tools/password-strength";
+import HtmlPreview from "@/components/tools/html-preview";
+import JsonValidator from "@/components/tools/json-validator";
+import ImageResizer from "@/components/tools/image-resizer";
+import UnicodeConverter from "@/components/tools/unicode-converter";
+import UrlExtractor from "@/components/tools/url-extractor";
+import PhoneFormatter from "@/components/tools/phone-formatter";
+import TextStats from "@/components/tools/text-stats";
 import JsonFormatter from "@/components/tools/json-formatter";
 import Base64Encoder from "@/components/tools/base64-encoder";
 import UrlEncoder from "@/components/tools/url-encoder";
@@ -98,16 +111,24 @@ import GcfCalculator from "@/components/tools/gcf-calculator";
 import ImageToBase64 from "@/components/tools/image-to-base64";
 
 interface ToolPageProps { params: Promise<{ slug: string }> }
-export function generateStaticParams() { return tools.map(function(tool){return {slug:(tool!).slug}}) }
+export function generateStaticParams() { return tools.map((tool) => ({ slug: tool.slug })) }
 export async function generateMetadata({ params }: ToolPageProps): Promise<Metadata> {
-  var slug = (await params).slug; var tool = getTool(slug); if (!tool) return {};
-  return { title: (tool!).title, description: (tool!).description, keywords: tool.keywords }
+  const { slug } = await params; const tool = getTool(slug); if (!tool) return {};
+  return { title: tool.title, description: tool.description, keywords: tool.keywords }
 }
 export default async function ToolPage({ params }: ToolPageProps) {
-  var slug = (await params).slug; var tool = getTool(slug); if (!tool) notFound();
-  var relatedTools = tools.filter(function(t){return t.category === (tool!).category && t.slug !== (tool!).slug}).slice(0, 3);
+  const { slug } = await params; const tool = getTool(slug); if (!tool) notFound();
+  const relatedTools = tools.filter((t) => t.category === tool.category && t.slug !== tool.slug).slice(0, 3);
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8"><Link href="/" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors mb-6"><ChevronLeft className="h-4 w-4" />All Tools</Link><div className="mb-8"><h1 className="text-2xl font-bold">{(tool!).title}</h1><p className="mt-2 text-sm text-muted-foreground">{(tool!).description}</p></div><div className="rounded-xl border bg-card p-6">
+    <div className="mx-auto max-w-6xl px-4 py-8"><Link href="/" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors mb-6"><ChevronLeft className="h-4 w-4" />All Tools</Link><div className="mb-8"><h1 className="text-2xl font-bold">{tool.title}</h1><p className="mt-2 text-sm text-muted-foreground">{tool.description}</p></div><div className="rounded-xl border bg-card p-6">
+        {slug === "password-strength" && <PasswordStrength />}
+        {slug === "html-preview" && <HtmlPreview />}
+        {slug === "json-validator" && <JsonValidator />}
+        {slug === "image-resizer" && <ImageResizer />}
+        {slug === "unicode-converter" && <UnicodeConverter />}
+        {slug === "url-extractor" && <UrlExtractor />}
+        {slug === "phone-formatter" && <PhoneFormatter />}
+        {slug === "text-stats" && <TextStats />}
         {slug === "json-formatter" && <JsonFormatter />}
         {slug === "base64-encoder" && <Base64Encoder />}
         {slug === "url-encoder" && <UrlEncoder />}
@@ -199,7 +220,13 @@ export default async function ToolPage({ params }: ToolPageProps) {
         {slug === "scientific-notation" && <ScientificNotation />}
         {slug === "decimal-fraction" && <DecimalFraction />}
         {slug === "gcf-calculator" && <GcfCalculator />}
-        {slug === "image-to-base64" && <ImageToBase64 />}
-      </div><div className="mt-6 p-4 rounded-lg bg-muted/50 border"><p className="text-sm text-muted-foreground">{(tool!).description} All processing happens in your browser.</p></div>{relatedTools.length > 0 && (<section className="mt-12"><h2 className="text-lg font-semibold mb-4">Related Tools</h2><div className="grid grid-cols-1 gap-4 sm:grid-cols-3">{relatedTools.map(function(t){return (<ToolCard key={t.slug} tool={t} />)})}</div></section>)}</div>
+        {slug === "image-to-base64" && <ImageToBase64 />}        {slug === "password-strength" && <PasswordStrength />}        {slug === "html-preview" && <HtmlPreview />}        {slug === "json-validator" && <JsonValidator />}        {slug === "image-resizer" && <ImageResizer />}        {slug === "unicode-converter" && <UnicodeConverter />}        {slug === "url-extractor" && <UrlExtractor />}        {slug === "phone-formatter" && <PhoneFormatter />}        {slug === "text-stats" && <TextStats />}
+              {slug === "tiktok-downloader" && <TiktokDownloader />}
+              {slug === "instagram-downloader" && <InstagramDownloader />}
+              {slug === "youtube-shorts-downloader" && <YoutubeShortsDownloader />}
+              {slug === "image-watermark-remover" && <ImageWatermarkRemover />}
+              {slug === "video-watermark-remover" && <VideoWatermarkRemover />}
+      </div>
+      <div className="mt-6 p-4 rounded-lg bg-muted/50 border"><p className="text-sm text-muted-foreground">{tool.description} All processing happens in your browser.</p></div>{relatedTools.length > 0 && (<section className="mt-12"><h2 className="text-lg font-semibold mb-4">Related Tools</h2><div className="grid grid-cols-1 gap-4 sm:grid-cols-3">{relatedTools.map((t) => (<ToolCard key={t.slug} tool={t} />))}</div></section>)}</div>
   )
 }

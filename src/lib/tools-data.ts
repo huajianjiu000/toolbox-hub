@@ -96,8 +96,20 @@ export const tools: ToolMeta[] = [
   { slug: "decimal-fraction", title: "Decimal to Fraction", description: "Convert decimals to fractions", category: "Math", icon: Wrench, keywords: ["decimal to fraction", "fraction calculator"], isPureFrontend: true },
   { slug: "gcf-calculator", title: "GCF LCM Calculator", description: "Greatest Common Factor", category: "Math", icon: Wrench, keywords: ["gcf calculator", "lcm calculator"], isPureFrontend: true },
   { slug: "image-to-base64", title: "Image to Base64", description: "Convert images to Base64", category: "Image", icon: Wrench, keywords: ["image to base64", "base64 image"], isPureFrontend: true },
+  { slug: "password-strength", title: "Password Strength Checker", description: "Check password strength", category: "Utility", icon: Wrench, keywords: ["password strength", "password checker", "password test"], isPureFrontend: true },
+  { slug: "html-preview", title: "HTML Preview", description: "Preview HTML code", category: "Developer", icon: Wrench, keywords: ["html preview", "html viewer", "html tester"], isPureFrontend: true },
+  { slug: "json-validator", title: "JSON Validator", description: "Validate JSON", category: "Developer", icon: Wrench, keywords: ["json validator", "json checker", "validate json"], isPureFrontend: true },
+  { slug: "image-resizer", title: "Image Resizer", description: "Resize images", category: "Image", icon: Wrench, keywords: ["image resizer", "resize image", "image resize"], isPureFrontend: true },
+  { slug: "unicode-converter", title: "Unicode Converter", description: "Convert to/from Unicode", category: "Developer", icon: Wrench, keywords: ["unicode converter", "unicode to text", "text to unicode"], isPureFrontend: true },
+  { slug: "url-extractor", title: "URL Extractor", description: "Extract URLs from text", category: "Web", icon: Wrench, keywords: ["url extractor", "extract urls", "find urls"], isPureFrontend: true },
+  { slug: "phone-formatter", title: "Phone Number Formatter", description: "Format phone numbers", category: "Utility", icon: Wrench, keywords: ["phone formatter", "phone number format", "format phone"], isPureFrontend: true },
+  { slug: "text-stats", title: "Advanced Text Statistics", description: "Text analysis", category: "Text", icon: Wrench, keywords: ["text stats", "text analysis", "text statistics"], isPureFrontend: true },
+  { slug: "tiktok-downloader", title: "TikTok Video Downloader", description: "Download TikTok videos without watermark. Extract video URL and get download links.", category: "Video", icon: Wrench, keywords: ["tiktok downloader", "tiktok no watermark", "tiktok video download", "tiktok saver", "download tiktok without watermark"], isPureFrontend: true },
+  { slug: "instagram-downloader", title: "Instagram Reels Downloader", description: "Download Instagram Reels and videos. Get share links and download methods.", category: "Video", icon: Wrench, keywords: ["instagram downloader", "instagram reels download", "reels downloader", "instagram video download", "save instagram"], isPureFrontend: true },
+  { slug: "youtube-shorts-downloader", title: "YouTube Shorts Downloader", description: "Extract YouTube Shorts video IDs and get download links with thumbnails.", category: "Video", icon: Wrench, keywords: ["youtube shorts downloader", "youtube shorts download", "shorts downloader", "download youtube shorts", "youtube shorts saver"], isPureFrontend: true },
+  { slug: "image-watermark-remover", title: "Image Watermark Remover", description: "Remove watermarks from images by cropping or blurring the mark area.", category: "Image", icon: Wrench, keywords: ["image watermark remover", "remove watermark", "watermark remover", "remove watermark from image", "delete watermark"], isPureFrontend: true },
+  { slug: "video-watermark-remover", title: "Video Watermark Remover", description: "Guide to removing watermarks from videos. Tips and free tools recommended.", category: "Video", icon: Wrench, keywords: ["video watermark remover", "remove video watermark", "video watermark removal", "remove watermark from video", "video editor watermark"], isPureFrontend: true },
 ];
+export const categories = Array.from(new Set(tools.map((t) => t.category)));
 
-export const categories = Array.from(new Set(tools.map(function(t){return t.category})));
-
-export function getTool(slug: string) { return tools.find(function(t){return t.slug === slug}); }
+export function getTool(slug: string): ToolMeta | undefined { return tools.find((t) => t.slug === slug); }
